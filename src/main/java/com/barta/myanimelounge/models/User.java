@@ -1,6 +1,7 @@
 package com.barta.myanimelounge.models;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -31,6 +32,10 @@ public class User {
 	@NotBlank
 	@Size(max = 120)
 	private String password;
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<AnimeEntry> animeEntries;
+
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles", 
@@ -85,5 +90,13 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public List<AnimeEntry> getAnimeEntries() {
+		return animeEntries;
+	}
+
+	public void setAnimeEntries(List<AnimeEntry> animeEntries) {
+		this.animeEntries = animeEntries;
 	}
 }
