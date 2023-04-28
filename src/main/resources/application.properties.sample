@@ -5,6 +5,7 @@ spring.datasource.password= 098zxc
 spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation= true
 spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.properties.hibernate.globally_quoted_identifiers=true
+spring.jpa.properties.hibernate.globally_quoted_identifiers_skip_column_definitions=true
 spring.jpa.properties.hibernate.event.merge.entity_copy_observer=allow
 
 # Hibernate ddl auto (create, create-drop, validate, update)
@@ -13,3 +14,12 @@ spring.jpa.hibernate.ddl-auto= update
 # App Properties
 myAnimeLounge.app.jwtSecret= bezKoderSecretKey
 myAnimeLounge.app.jwtExpirationMs= 86400000
+
+###### Email Properties ######
+# smtp mail properties
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=homo@uwu.com
+spring.mail.password=ewoejwejwoejwoejwo
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
