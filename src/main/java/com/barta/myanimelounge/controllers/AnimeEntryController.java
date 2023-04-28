@@ -3,6 +3,7 @@ package com.barta.myanimelounge.controllers;
 import com.barta.myanimelounge.exceptions.EntryNotFoundException;
 import com.barta.myanimelounge.exceptions.RestrictedAccessException;
 import com.barta.myanimelounge.models.AnimeEntry;
+import com.barta.myanimelounge.models.EpisodeProgress;
 import com.barta.myanimelounge.models.User;
 import com.barta.myanimelounge.repository.AnimeEntryRepository;
 import com.barta.myanimelounge.repository.UserRepository;
@@ -67,6 +68,7 @@ public class AnimeEntryController {
         return this.animeEntryRepository.save(animeEntry);
     }
 
+
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public AnimeEntry updateAnimeEntryForCurrentUser(@Valid @RequestBody() AnimeEntry animeEntry, @PathVariable("id") String Id) throws ChangeSetPersister.NotFoundException {
@@ -92,6 +94,7 @@ public class AnimeEntryController {
         entry.setEndDate(animeEntry.getEndDate());
         entry.setRating(animeEntry.getRating());
         entry.setStatus(animeEntry.getStatus());
+        entry.setEpisodeProgress(animeEntry.getEpisodeProgress());
         return this.animeEntryRepository.save(entry);
     }
 
@@ -104,6 +107,19 @@ public class AnimeEntryController {
             throw new RestrictedAccessException();
         }
         this.animeEntryRepository.deleteById(Long.valueOf(Id));
+    }
+
+    @PutMapping("/{id}/progress")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    public AnimeEntry updateAnimeProgress(@PathVariable("id") String Id, @RequestBody List<EpisodeProgress> episodeProgressList) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AnimeEntry entry = this.animeEntryRepository.findById(Long.valueOf(Id)).orElseThrow(EntryNotFoundException::new);
+        if (!Objects.equals(entry.getUser().getUsername(), auth.getName())) {
+            throw new RestrictedAccessException();
+        }
+        AnimeEntry animeEntry = this.animeEntryRepository.findById(Long.valueOf(Id)).orElseThrow(EntryNotFoundException::new);
+        animeEntry.setEpisodeProgress(episodeProgressList);
+        return this.animeEntryRepository.save(animeEntry);
     }
 
     @GetMapping("/user/{userId}")

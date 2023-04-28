@@ -6,7 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "anime-entries")
@@ -40,6 +42,34 @@ public class AnimeEntry {
 
     @Column()
     private Date endDate;
+
+    @Column()
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<EpisodeProgress> episodeProgress;
+
+    public List<EpisodeProgress> getEpisodeProgress() {
+        return this.episodeProgress;
+    }
+
+    public void setEpisodeProgress(List<EpisodeProgress> episodeProgress) {
+        if (this.episodeProgress == null) {
+            this.episodeProgress = new ArrayList<>();
+        }
+        for (EpisodeProgress progress : episodeProgress) {
+            boolean found = false;
+            for (int i = 0; i < this.episodeProgress.size(); i++) {
+                if (progress.getEpisodeNum().equals(this.episodeProgress.get(i).getEpisodeNum())) {
+                    this.episodeProgress.set(i, progress);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                this.episodeProgress.add(progress);
+            }
+        }
+    }
+
 
     public AnimeEntry(Long aniListId, String review, String status, Float rating, Date startDate, Date endDate) {
         this.aniListId = aniListId;
