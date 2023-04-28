@@ -10,6 +10,7 @@
 ## How to set up
 - Clone this repo
 - Create a postgres database
+- Copy `application.properties.sample` contents and create a file named `application.properties` in **resources** directory, after that fill the file with correct credentials.
 - Update `\src\main\resources\application.properties` with correct credentials
 - Run `./mvnw spring-boot:run`
 - After running the server, you need to add the roles into the database,
