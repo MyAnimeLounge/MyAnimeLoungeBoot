@@ -33,6 +33,17 @@ public class User {
 	@Size(max = 120)
 	private String password;
 
+	public boolean isEmailVerified() {
+		return emailVerified;
+	}
+
+	public void setEmailVerified(boolean emailVerified) {
+		this.emailVerified = emailVerified;
+	}
+
+	@Column(columnDefinition = "boolean default false")
+	private boolean emailVerified;
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<AnimeEntry> animeEntries;
 

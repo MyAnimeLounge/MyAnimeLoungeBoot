@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @RestController
-@RequestMapping(value = "/api/entries/anime")
+@RequestMapping(value = "/entries/anime")
 public class AnimeEntryController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -71,7 +71,7 @@ public class AnimeEntryController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public AnimeEntry updateAnimeEntryForCurrentUser(@Valid @RequestBody() AnimeEntry animeEntry, @PathVariable("id") String Id) throws ChangeSetPersister.NotFoundException {
+    public AnimeEntry updateAnimeEntryForCurrentUser(@Valid @RequestBody() AnimeEntry animeEntry, @PathVariable("id") String Id) {
         boolean validStatus = false;
         for (String status : statuses) {
             if (status.equals(animeEntry.getStatus())) {
