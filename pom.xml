@@ -8,11 +8,11 @@
 		<version>2.7.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.bezkoder</groupId>
-	<artifactId>spring-boot-security-postgresql</artifactId>
+	<groupId>com.barta</groupId>
+	<artifactId>my-anime-lounge</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-security-postgresql</name>
-	<description>Spring Boot, Spring Security, PostgreSQL: JWT Authentication &amp; Authorization example</description>
+	<name>my-anime-lounge</name>
+	<description>MyAnimeLounge microservice</description>
 
 	<properties>
 		<java.version>1.8</java.version>

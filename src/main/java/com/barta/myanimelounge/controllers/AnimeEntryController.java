@@ -7,7 +7,6 @@ import com.barta.myanimelounge.models.EpisodeProgress;
 import com.barta.myanimelounge.models.User;
 import com.barta.myanimelounge.repository.AnimeEntryRepository;
 import com.barta.myanimelounge.repository.UserRepository;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
